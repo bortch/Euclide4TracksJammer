@@ -10,7 +10,7 @@
  */
 #define APP_NAME "Euclide4TracksJammer"
 #define APP_AUTHOR "Soultracker"
-#define APP_VERSION "0.1.9"
+#define APP_VERSION "0.2"
 #define APP_GUID "4908c586-6b7d-492c-9368-6eb81bf6b0e4"
 
 /**
