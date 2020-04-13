@@ -40,7 +40,7 @@ Rudimentary MIDI multitrack with Euclidean rhythm generation on [RK-002](https:/
 
  The general operation is as follows: 
     
-    *select a track, then a mode and modify (increase or decrease) its value.*
+  Select a **Track**, then a **Mode** and **modify** (increase or decrease) its value.
 
  ## Example of key combination:
  - Delete the notes of a track:
