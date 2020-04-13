@@ -1,6 +1,5 @@
 #pragma once
 
-//The following is the #include header guard.
 #ifndef __E4T_CONSTANT_HPP__
 #define __E4T_CONSTANT_HPP__
 
@@ -66,10 +65,6 @@
 #define KEY_OPTION_1 12
 #define KEY_BPM_MODE 13
 #define KEY_OPTION_10 14
-
-#define LEFT -1
-#define RIGHT 1
-
 // UI - end
 
 // UI - param
