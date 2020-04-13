@@ -58,8 +58,8 @@ RK002_DECLARE_INFO(APP_NAME, APP_AUTHOR, APP_VERSION, APP_GUID)
  * */
 
 // RK002_DECLARE_PARAM(name,flags,min,max,def)
-RK002_DECLARE_PARAM(MIDICHN, 1, 0, 15, 0)  // defines the operating MIDI channel
-RK002_DECLARE_PARAM(BPM, 1, 30, 240, 120); // defines the base BPM
+RK002_DECLARE_PARAM(MIDICHN, 1, 0, 15, 0)      // defines the operating MIDI channel
+RK002_DECLARE_PARAM(BPM, 1, 30, 240, 120);     // defines the base BPM
 RK002_DECLARE_PARAM(ROOT_NOTE, 1, 21, 74, 21); //A0 by default
 
 static byte tick = 0;
@@ -201,7 +201,7 @@ bool RK002_onNoteOn(byte channel, byte key, byte velocity)
 //
 bool RK002_onNoteOff(byte channel, byte key, byte velocity)
 {
-  byte command = key -  RK002_paramGet(ROOT_NOTE);
+  byte command = key - RK002_paramGet(ROOT_NOTE);
   LOG("Note OFF (channel=%d, key=%d, velocity=%d) command: %d", channel, key, velocity, command);
   bool thru = false;
   switch (command)
