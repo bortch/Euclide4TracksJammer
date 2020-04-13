@@ -5,7 +5,7 @@
 #include "Constant.hpp"
 #include "State.hpp"
 
-RK002_DECLARE_INFO(APP_NAME, APP_AUTHOR, APP_VERSION, APP_GUID);
+RK002_DECLARE_INFO(APP_NAME, APP_AUTHOR, APP_VERSION, APP_GUID)
 
 /**
  * Each track contains max 16 notes.
@@ -58,20 +58,20 @@ RK002_DECLARE_INFO(APP_NAME, APP_AUTHOR, APP_VERSION, APP_GUID);
  * */
 
 // RK002_DECLARE_PARAM(name,flags,min,max,def)
-// RK002_DECLARE_PARAM(MIDICHN, 1, 0, 15, 0); // defines the operating MIDI channel
-// RK002_DECLARE_PARAM(BPM, 1, 30, 240, 80);  // defines the base BPM
+RK002_DECLARE_PARAM(MIDICHN, 1, 0, 15, 0)  // defines the operating MIDI channel
+RK002_DECLARE_PARAM(BPM, 1, 30, 240, 120); // defines the base BPM
+RK002_DECLARE_PARAM(ROOT_NOTE, 1, 21, 74, 21); //A0 by default
 
 static byte tick = 0;
 static byte clockStep = 0;
-static byte channel = 0;
-static unsigned short bpm = 1200;
+
 static NoteOffHandler noteOffHandler = NoteOffHandler();
 static Track *tracks[MAX_TRACKS];
 static State state = State();
 
 bool RK002_onNoteOn(byte channel, byte key, byte velocity)
 {
-  byte command = key - KEY_BASE_DEFAULT;
+  byte command = key - RK002_paramGet(ROOT_NOTE);
   LOG("Note ON (channel=%d, key=%d, velocity=%d) command: %d", channel, key, velocity, command);
   bool thru = false;
   switch (command)
@@ -129,8 +129,8 @@ bool RK002_onNoteOn(byte channel, byte key, byte velocity)
     }
     if (state.isModeActive(MODE_BPM))
     {
-      bpm = 1200;
-      RK002_clockSetTempo(bpm);
+      RK002_paramSet(BPM, 120);
+      RK002_clockSetTempo(RK002_paramGet(BPM));
     }
     break;
 
@@ -153,8 +153,7 @@ bool RK002_onNoteOn(byte channel, byte key, byte velocity)
     }
     if (state.isModeActive(MODE_BPM))
     {
-      bpm = constrain((bpm + INC_VALUE * state.optionFactor()), 300, 2400);
-      RK002_clockSetTempo(bpm);
+      RK002_paramSet(BPM, constrain(RK002_paramGet(BPM) + INC_VALUE * state.optionFactor(), 30, 240));
     }
     break;
 
@@ -177,8 +176,7 @@ bool RK002_onNoteOn(byte channel, byte key, byte velocity)
     }
     if (state.isModeActive(MODE_BPM))
     {
-      bpm = constrain((bpm + DEC_VALUE * state.optionFactor()), 300, 2400);
-      RK002_clockSetTempo(bpm);
+      RK002_paramSet(BPM, constrain(RK002_paramGet(BPM) + DEC_VALUE * state.optionFactor(), 30, 240));
     }
     break;
   // option
@@ -203,7 +201,7 @@ bool RK002_onNoteOn(byte channel, byte key, byte velocity)
 //
 bool RK002_onNoteOff(byte channel, byte key, byte velocity)
 {
-  byte command = key - KEY_BASE_DEFAULT;
+  byte command = key -  RK002_paramGet(ROOT_NOTE);
   LOG("Note OFF (channel=%d, key=%d, velocity=%d) command: %d", channel, key, velocity, command);
   bool thru = false;
   switch (command)
@@ -275,7 +273,7 @@ bool RK002_onClock()
     LOG("Clock step %d", clockStep);
     // for each step of each track,
     // kill notes that needs to be killed.
-    noteOffHandler.flushNote(clockStep, channel);
+    noteOffHandler.flushNote(clockStep, RK002_paramGet(MIDICHN));
 
     byte trackIndex = MAX_TRACKS;
     do
@@ -296,16 +294,16 @@ void sendNotesOn(const byte trackIndex, const byte clockStep)
     tracks[trackIndex]->sendNotesOn(clockStep);
   }
 }
-/*
+
 void RK002_onParamChange(unsigned param_nr, int val)
 {
   switch (param_nr)
   {
   case BPM:
-    RK002_clockSetTempo(RK002_paramGet(BPM) * 10); // 120 BPM
+    RK002_clockSetTempo(RK002_paramGet(BPM) * 10);
     break;
   }
-}*/
+}
 
 void euclide(const byte trigs, const int trackNumber)
 {
@@ -501,11 +499,9 @@ void setup()
     tracks[trackIndex] = new Track(trackIndex, &noteOffHandler);
   } while (trackIndex--);
 
-  RK002_clockSetMode(1);     // internal clock only
-  RK002_clockSetTempo(1200); // 120 BPM
-  //RK002_clockSetTempo(RK002_paramGet(BPM) * 10); // 120 BPM
-  //channel = 1;//RK002_paramGet(MIDICHN);
-  LOG("Setup function called, channel:%d", channel);
+  RK002_clockSetMode(1); // internal clock only
+  RK002_clockSetTempo(RK002_paramGet(BPM) * 10);
+  LOG("Setup function called, channel:%d", RK002_paramGet(MIDICHN));
 }
 
 void loop()

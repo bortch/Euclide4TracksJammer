@@ -49,7 +49,7 @@
 #define MODE_BPM 6
 
 // User interface (A0->B0)
-#define KEY_BASE_DEFAULT 21
+//#define KEY_BASE_DEFAULT 21
 #define KEY_DEC 0
 #define KEY_CLEAR_RESET 1
 #define KEY_INC 2

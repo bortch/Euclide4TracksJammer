@@ -82,7 +82,7 @@ byte Queue::pop()
 
 byte Queue::peek()
 {
-  byte result;
+  byte result = 0;
   if (_count > 0)
   {
     result = _data[_front];
