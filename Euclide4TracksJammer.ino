@@ -53,7 +53,7 @@ RK002_DECLARE_INFO(APP_NAME, APP_AUTHOR, APP_VERSION, APP_GUID)
  *  4. While holding those keys, set the number of hit for the pattern by pressing B0.
  *  5. The sequence will begin to play the entered notes when you let go. 
  * 
- *  Please feel free to report any suggestion, question or bug: info[^.^]soultracker.net
+ *  Github: https://github.com/bortch/Euclide4TracksJammer
  *  
  * */
 
