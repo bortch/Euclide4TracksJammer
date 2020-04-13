@@ -55,7 +55,7 @@ Rudimentary MIDI multitrack with Euclidean rhythm generation on [RK-002](https:/
 
     ([`D1`] or [`E1`] or [`F1`] or [`G1`]) + [`C#1`] + [`A#0`]
   
- # Example of use:
+ ## Example of use:
  
    1. Press and hold D1 to select Track 1
    2. While holding D1, enter few notes, they are now recorded in track 1
