@@ -23,7 +23,7 @@ public:
   };
   ~Pattern(){};
 
-  inline void setSize(const byte size) { _size = size % MAX_STEP; }
+  inline void setSize(const byte size) { _size = constrain(size, 1, MAX_STEP); }
   inline byte size() { return _size; }
 
   bool operator[](byte index);
@@ -61,14 +61,14 @@ inline bool Pattern::isHit(const byte index)
 inline void Pattern::increaseOffset(const byte increment)
 {
   LOG("Inc Offset increment:%d offset:%d size:%d", increment, _offset, _size);
-  _offset = (_offset + increment) % _size;
+  _offset = constrain(_offset + increment, 0, _size);
   LOG("Inc Offset result offset=%d", _offset);
 }
 
 inline void Pattern::decreaseOffset(const byte decrement)
 {
   LOG("Dec Offset decrement:%d offset:%d size:%d", decrement, _offset, _size);
-  _offset = abs(_offset - decrement) % _size;
+  _offset = constrain(_offset - decrement, 0, _size);
   LOG("Dec Offset result offset=%d", _offset);
 }
 

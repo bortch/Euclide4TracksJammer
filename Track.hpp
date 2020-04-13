@@ -54,7 +54,7 @@ public:
   inline void setHit(byte const index) { _pattern.setHit(index); }
   inline void setRest(byte const index) { _pattern.setRest(index); }
   inline byte getPatternSize() { return _pattern.size(); }
-  inline void changeNotesDuration() { _duration_mode = (_duration_mode + 1) % DURATION_MODE; }
+  inline void changeNotesDuration() { _duration_mode = constrain(_duration_mode + 1, 0,DURATION_MODE); }
   void setPatternSize(const byte size);
 
   // notes handling
@@ -126,7 +126,7 @@ inline void Track::clearTrigs()
 
 void Track::increaseTrigs(byte const increment)
 {
-  byte newTrigs = (_trigs + increment) % _pattern.size();
+  byte newTrigs = constrain(_trigs + increment,0, _pattern.size());
   setTrigs(newTrigs);
 }
 

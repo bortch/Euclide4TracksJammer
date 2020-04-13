@@ -49,23 +49,22 @@
 #define MODE_BPM 6
 
 // User interface (A0->B0)
-#define KEY_BASE_DEFAULT 21 //(A0)
+#define KEY_BASE_DEFAULT 21
 #define KEY_DEC 0
 #define KEY_CLEAR_RESET 1
 #define KEY_INC 2
 #define KEY_NOTE_OFFSET_MODE 3
 #define KEY_NOTE_DURATION_MODE 4
-#define KEY_TRACK_0 5//24 // select track 1
+#define KEY_TRACK_0 5
 #define KEY_ARP_CHORD_MODE 6
-#define KEY_TRACK_1 7//26 // select track 2
-#define KEY_TRACK_2 8//28 // select track 3
+#define KEY_TRACK_1 7
+#define KEY_TRACK_2 8
 #define KEY_EUCLIDE_MODE 9
-#define KEY_TRACK_3 10//29 // select track 4
+#define KEY_TRACK_3 10
 #define KEY_PATTERN_MODE 11
 #define KEY_OPTION_1 12
 #define KEY_BPM_MODE 13
 #define KEY_OPTION_10 14
-// UI - end
 
 // UI - param
 #define INC_VALUE 1
